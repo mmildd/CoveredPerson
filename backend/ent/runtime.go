@@ -3,47 +3,63 @@
 package ent
 
 import (
-	"github.com/tanapon395/playlist-video/ent/playlist"
-	"github.com/tanapon395/playlist-video/ent/resolution"
-	"github.com/tanapon395/playlist-video/ent/schema"
-	"github.com/tanapon395/playlist-video/ent/user"
-	"github.com/tanapon395/playlist-video/ent/video"
+	"github.com/mmildd_s/app/ent/certificate"
+	"github.com/mmildd_s/app/ent/fund"
+	"github.com/mmildd_s/app/ent/patient"
+	"github.com/mmildd_s/app/ent/schema"
+	"github.com/mmildd_s/app/ent/schemetype"
 )
 
 // The init function reads all schema descriptors with runtime
 // code (default values, validators or hooks) and stitches it
 // to their package variables.
 func init() {
-	playlistFields := schema.Playlist{}.Fields()
-	_ = playlistFields
-	// playlistDescTitle is the schema descriptor for title field.
-	playlistDescTitle := playlistFields[0].Descriptor()
-	// playlist.TitleValidator is a validator for the "title" field. It is called by the builders before save.
-	playlist.TitleValidator = playlistDescTitle.Validators[0].(func(string) error)
-	resolutionFields := schema.Resolution{}.Fields()
-	_ = resolutionFields
-	// resolutionDescValue is the schema descriptor for value field.
-	resolutionDescValue := resolutionFields[0].Descriptor()
-	// resolution.ValueValidator is a validator for the "value" field. It is called by the builders before save.
-	resolution.ValueValidator = resolutionDescValue.Validators[0].(func(int) error)
-	userFields := schema.User{}.Fields()
-	_ = userFields
-	// userDescName is the schema descriptor for name field.
-	userDescName := userFields[0].Descriptor()
-	// user.NameValidator is a validator for the "name" field. It is called by the builders before save.
-	user.NameValidator = userDescName.Validators[0].(func(string) error)
-	// userDescEmail is the schema descriptor for email field.
-	userDescEmail := userFields[1].Descriptor()
-	// user.EmailValidator is a validator for the "email" field. It is called by the builders before save.
-	user.EmailValidator = userDescEmail.Validators[0].(func(string) error)
-	videoFields := schema.Video{}.Fields()
-	_ = videoFields
-	// videoDescName is the schema descriptor for name field.
-	videoDescName := videoFields[0].Descriptor()
-	// video.NameValidator is a validator for the "name" field. It is called by the builders before save.
-	video.NameValidator = videoDescName.Validators[0].(func(string) error)
-	// videoDescURL is the schema descriptor for url field.
-	videoDescURL := videoFields[1].Descriptor()
-	// video.URLValidator is a validator for the "url" field. It is called by the builders before save.
-	video.URLValidator = videoDescURL.Validators[0].(func(string) error)
+	certificateFields := schema.Certificate{}.Fields()
+	_ = certificateFields
+	// certificateDescCertificateName is the schema descriptor for Certificate_Name field.
+	certificateDescCertificateName := certificateFields[0].Descriptor()
+	// certificate.CertificateNameValidator is a validator for the "Certificate_Name" field. It is called by the builders before save.
+	certificate.CertificateNameValidator = certificateDescCertificateName.Validators[0].(func(string) error)
+	fundFields := schema.Fund{}.Fields()
+	_ = fundFields
+	// fundDescFundName is the schema descriptor for Fund_Name field.
+	fundDescFundName := fundFields[0].Descriptor()
+	// fund.FundNameValidator is a validator for the "Fund_Name" field. It is called by the builders before save.
+	fund.FundNameValidator = fundDescFundName.Validators[0].(func(string) error)
+	patientFields := schema.Patient{}.Fields()
+	_ = patientFields
+	// patientDescPatientName is the schema descriptor for Patient_Name field.
+	patientDescPatientName := patientFields[0].Descriptor()
+	// patient.PatientNameValidator is a validator for the "Patient_Name" field. It is called by the builders before save.
+	patient.PatientNameValidator = patientDescPatientName.Validators[0].(func(string) error)
+	// patientDescPatientAge is the schema descriptor for Patient_Age field.
+	patientDescPatientAge := patientFields[1].Descriptor()
+	// patient.PatientAgeValidator is a validator for the "Patient_Age" field. It is called by the builders before save.
+	patient.PatientAgeValidator = patientDescPatientAge.Validators[0].(func(string) error)
+	// patientDescPatientWeight is the schema descriptor for Patient_Weight field.
+	patientDescPatientWeight := patientFields[2].Descriptor()
+	// patient.PatientWeightValidator is a validator for the "Patient_Weight" field. It is called by the builders before save.
+	patient.PatientWeightValidator = patientDescPatientWeight.Validators[0].(func(string) error)
+	// patientDescPatientHeight is the schema descriptor for Patient_Height field.
+	patientDescPatientHeight := patientFields[3].Descriptor()
+	// patient.PatientHeightValidator is a validator for the "Patient_Height" field. It is called by the builders before save.
+	patient.PatientHeightValidator = patientDescPatientHeight.Validators[0].(func(string) error)
+	// patientDescPatientPrefix is the schema descriptor for Patient_Prefix field.
+	patientDescPatientPrefix := patientFields[4].Descriptor()
+	// patient.PatientPrefixValidator is a validator for the "Patient_Prefix" field. It is called by the builders before save.
+	patient.PatientPrefixValidator = patientDescPatientPrefix.Validators[0].(func(string) error)
+	// patientDescPatientGender is the schema descriptor for Patient_Gender field.
+	patientDescPatientGender := patientFields[5].Descriptor()
+	// patient.PatientGenderValidator is a validator for the "Patient_Gender" field. It is called by the builders before save.
+	patient.PatientGenderValidator = patientDescPatientGender.Validators[0].(func(string) error)
+	// patientDescPatientBlood is the schema descriptor for Patient_Blood field.
+	patientDescPatientBlood := patientFields[6].Descriptor()
+	// patient.PatientBloodValidator is a validator for the "Patient_Blood" field. It is called by the builders before save.
+	patient.PatientBloodValidator = patientDescPatientBlood.Validators[0].(func(string) error)
+	schemetypeFields := schema.SchemeType{}.Fields()
+	_ = schemetypeFields
+	// schemetypeDescSchemeTypeName is the schema descriptor for SchemeType_Name field.
+	schemetypeDescSchemeTypeName := schemetypeFields[0].Descriptor()
+	// schemetype.SchemeTypeNameValidator is a validator for the "SchemeType_Name" field. It is called by the builders before save.
+	schemetype.SchemeTypeNameValidator = schemetypeDescSchemeTypeName.Validators[0].(func(string) error)
 }

@@ -1,144 +1,166 @@
 basePath: /api/v1
 definitions:
-  ent.Playlist:
+  controllers.CoveredPerson:
     properties:
-      edges:
-        $ref: '#/definitions/ent.PlaylistEdges'
-        description: |-
-          Edges holds the relations/edges for other nodes in the graph.
-          The values are being populated by the PlaylistQuery when eager-loading is set.
-        type: object
-      id:
-        description: ID of the ent.
+      certificate:
         type: integer
-      title:
-        description: Title holds the value of the "title" field.
-        type: string
+      fund:
+        type: integer
+      patient:
+        type: integer
+      schemeType:
+        type: integer
     type: object
-  ent.Playlist_Video:
+  ent.Certificate:
     properties:
-      added_time:
-        description: AddedTime holds the value of the "added_time" field.
+      Certificate_Name:
+        description: CertificateName holds the value of the "Certificate_Name" field.
         type: string
       edges:
-        $ref: '#/definitions/ent.Playlist_VideoEdges'
+        $ref: '#/definitions/ent.CertificateEdges'
         description: |-
           Edges holds the relations/edges for other nodes in the graph.
-          The values are being populated by the Playlist_VideoQuery when eager-loading is set.
+          The values are being populated by the CertificateQuery when eager-loading is set.
         type: object
       id:
         description: ID of the ent.
         type: integer
     type: object
-  ent.Playlist_VideoEdges:
+  ent.CertificateEdges:
     properties:
-      playlist:
-        $ref: '#/definitions/ent.Playlist'
-        description: Playlist holds the value of the playlist edge.
-        type: object
-      resolution:
-        $ref: '#/definitions/ent.Resolution'
-        description: Resolution holds the value of the resolution edge.
-        type: object
-      video:
-        $ref: '#/definitions/ent.Video'
-        description: Video holds the value of the video edge.
-        type: object
-    type: object
-  ent.PlaylistEdges:
-    properties:
-      owner:
-        $ref: '#/definitions/ent.User'
-        description: Owner holds the value of the owner edge.
-        type: object
-      playlistVideos:
-        description: PlaylistVideos holds the value of the playlist_videos edge.
+      certificateCoveredPerson:
+        description: CertificateCoveredPerson holds the value of the Certificate_CoveredPerson
+          edge.
         items:
-          $ref: '#/definitions/ent.Playlist_Video'
+          $ref: '#/definitions/ent.CoveredPerson'
         type: array
     type: object
-  ent.Resolution:
+  ent.CoveredPerson:
     properties:
+      certificate_id:
+        type: integer
       edges:
-        $ref: '#/definitions/ent.ResolutionEdges'
+        $ref: '#/definitions/ent.CoveredPersonEdges'
         description: |-
           Edges holds the relations/edges for other nodes in the graph.
-          The values are being populated by the ResolutionQuery when eager-loading is set.
+          The values are being populated by the CoveredPersonQuery when eager-loading is set.
+        type: object
+      fund_id:
+        type: integer
+      id:
+        description: ID of the ent.
+        type: integer
+      patient_id:
+        type: integer
+      schemeType_id:
+        type: integer
+    type: object
+  ent.CoveredPersonEdges:
+    properties:
+      certificate:
+        $ref: '#/definitions/ent.Certificate'
+        description: Certificate holds the value of the Certificate edge.
+        type: object
+      fund:
+        $ref: '#/definitions/ent.Fund'
+        description: Fund holds the value of the Fund edge.
+        type: object
+      patient:
+        $ref: '#/definitions/ent.Patient'
+        description: Patient holds the value of the Patient edge.
+        type: object
+      schemeType:
+        $ref: '#/definitions/ent.SchemeType'
+        description: SchemeType holds the value of the SchemeType edge.
+        type: object
+    type: object
+  ent.Fund:
+    properties:
+      Fund_Name:
+        description: FundName holds the value of the "Fund_Name" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.FundEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the FundQuery when eager-loading is set.
         type: object
       id:
         description: ID of the ent.
         type: integer
-      value:
-        description: Value holds the value of the "value" field.
-        type: integer
     type: object
-  ent.ResolutionEdges:
+  ent.FundEdges:
     properties:
-      playlistVideos:
-        description: PlaylistVideos holds the value of the playlist_videos edge.
+      fundCoveredPerson:
+        description: FundCoveredPerson holds the value of the Fund_CoveredPerson edge.
         items:
-          $ref: '#/definitions/ent.Playlist_Video'
+          $ref: '#/definitions/ent.CoveredPerson'
         type: array
     type: object
-  ent.User:
+  ent.Patient:
     properties:
+      Patient_Age:
+        description: PatientAge holds the value of the "Patient_Age" field.
+        type: string
+      Patient_Blood:
+        description: PatientBlood holds the value of the "Patient_Blood" field.
+        type: string
+      Patient_Gender:
+        description: PatientGender holds the value of the "Patient_Gender" field.
+        type: string
+      Patient_Height:
+        description: PatientHeight holds the value of the "Patient_Height" field.
+        type: string
+      Patient_Name:
+        description: PatientName holds the value of the "Patient_Name" field.
+        type: string
+      Patient_Prefix:
+        description: PatientPrefix holds the value of the "Patient_Prefix" field.
+        type: string
+      Patient_Weight:
+        description: PatientWeight holds the value of the "Patient_Weight" field.
+        type: string
       edges:
-        $ref: '#/definitions/ent.UserEdges'
+        $ref: '#/definitions/ent.PatientEdges'
         description: |-
           Edges holds the relations/edges for other nodes in the graph.
-          The values are being populated by the UserQuery when eager-loading is set.
-        type: object
-      email:
-        description: Email holds the value of the "email" field.
-        type: string
-      id:
-        description: ID of the ent.
-        type: integer
-      name:
-        description: Name holds the value of the "name" field.
-        type: string
-    type: object
-  ent.UserEdges:
-    properties:
-      playlists:
-        description: Playlists holds the value of the playlists edge.
-        items:
-          $ref: '#/definitions/ent.Playlist'
-        type: array
-      videos:
-        description: Videos holds the value of the videos edge.
-        items:
-          $ref: '#/definitions/ent.Video'
-        type: array
-    type: object
-  ent.Video:
-    properties:
-      edges:
-        $ref: '#/definitions/ent.VideoEdges'
-        description: |-
-          Edges holds the relations/edges for other nodes in the graph.
-          The values are being populated by the VideoQuery when eager-loading is set.
+          The values are being populated by the PatientQuery when eager-loading is set.
         type: object
       id:
         description: ID of the ent.
         type: integer
-      name:
-        description: Name holds the value of the "name" field.
-        type: string
-      url:
-        description: URL holds the value of the "url" field.
-        type: string
     type: object
-  ent.VideoEdges:
+  ent.PatientEdges:
     properties:
-      owner:
-        $ref: '#/definitions/ent.User'
-        description: Owner holds the value of the owner edge.
-        type: object
-      playlistVideos:
-        description: PlaylistVideos holds the value of the playlist_videos edge.
+      patientCoveredPerson:
+        description: PatientCoveredPerson holds the value of the Patient_CoveredPerson
+          edge.
         items:
-          $ref: '#/definitions/ent.Playlist_Video'
+          $ref: '#/definitions/ent.CoveredPerson'
+        type: array
+    type: object
+  ent.SchemeType:
+    properties:
+      SchemeType_Name:
+        description: SchemeTypeName holds the value of the "SchemeType_Name" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.SchemeTypeEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the SchemeTypeQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.SchemeTypeEdges:
+    properties:
+      schemeTypeCoveredPerson:
+        description: SchemeTypeCoveredPerson holds the value of the SchemeType_CoveredPerson
+          edge.
+        items:
+          $ref: '#/definitions/ent.CoveredPerson'
         type: array
     type: object
   gin.H:
@@ -158,10 +180,10 @@ info:
   title: SUT SA Example API Playlist Vidoe
   version: "1.0"
 paths:
-  /playlist-videos:
+  /certificates:
     get:
-      description: list playlist-video entities
-      operationId: list-playlist-video
+      description: list certificate entities
+      operationId: list-certificate
       parameters:
       - description: Limit
         in: query
@@ -178,7 +200,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/ent.Playlist_Video'
+              $ref: '#/definitions/ent.Certificate'
             type: array
         "400":
           description: Bad Request
@@ -188,26 +210,26 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/gin.H'
-      summary: List playlist-video entities
+      summary: List certificate entities
     post:
       consumes:
       - application/json
-      description: Create playlist-video
-      operationId: create-playlist-video
+      description: Create certificate
+      operationId: create-certificate
       parameters:
-      - description: Playlist_Video entity
+      - description: Certificate entity
         in: body
-        name: playlist-video
+        name: certificate
         required: true
         schema:
-          $ref: '#/definitions/ent.Playlist_Video'
+          $ref: '#/definitions/ent.Certificate'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/ent.Playlist_Video'
+            $ref: '#/definitions/ent.Certificate'
         "400":
           description: Bad Request
           schema:
@@ -216,250 +238,13 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/gin.H'
-      summary: Create playlist-video
-  /playlists:
-    get:
-      description: list playlist entities
-      operationId: list-playlist
-      parameters:
-      - description: Limit
-        in: query
-        name: limit
-        type: integer
-      - description: Offset
-        in: query
-        name: offset
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/ent.Playlist'
-            type: array
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: List playlist entities
-    post:
-      consumes:
-      - application/json
-      description: Create playlist
-      operationId: create-playlist
-      parameters:
-      - description: Playlist entity
-        in: body
-        name: playlist
-        required: true
-        schema:
-          $ref: '#/definitions/ent.Playlist'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/ent.Playlist'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: Create playlist
-  /playlists/{id}:
-    get:
-      description: get playlist by ID
-      operationId: get-playlist
-      parameters:
-      - description: Playlist ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/ent.Playlist'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: Get a playlist entity by ID
-  /resolutions:
-    get:
-      description: list resolution entities
-      operationId: list-resolution
-      parameters:
-      - description: Limit
-        in: query
-        name: limit
-        type: integer
-      - description: Offset
-        in: query
-        name: offset
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/ent.Resolution'
-            type: array
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: List resolution entities
-    post:
-      consumes:
-      - application/json
-      description: Create resolution
-      operationId: create-resolution
-      parameters:
-      - description: Resolution entity
-        in: body
-        name: resolution
-        required: true
-        schema:
-          $ref: '#/definitions/ent.Resolution'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/ent.Resolution'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: Create resolution
-  /resolutions/{id}:
-    get:
-      description: get resolution by ID
-      operationId: get-resolution
-      parameters:
-      - description: Resolution ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/ent.Resolution'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: Get a resolution entity by ID
-  /users:
-    get:
-      description: list user entities
-      operationId: list-user
-      parameters:
-      - description: Limit
-        in: query
-        name: limit
-        type: integer
-      - description: Offset
-        in: query
-        name: offset
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/ent.User'
-            type: array
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: List user entities
-    post:
-      consumes:
-      - application/json
-      description: Create user
-      operationId: create-user
-      parameters:
-      - description: User entity
-        in: body
-        name: user
-        required: true
-        schema:
-          $ref: '#/definitions/ent.User'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/ent.User'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: Create user
-  /users/{id}:
+      summary: Create certificate
+  /certificates/{id}:
     delete:
-      description: get user by ID
-      operationId: delete-user
+      description: get certificate by ID
+      operationId: delete-certificate
       parameters:
-      - description: User ID
+      - description: Certificate ID
         in: path
         name: id
         required: true
@@ -483,12 +268,12 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/gin.H'
-      summary: Delete a user entity by ID
+      summary: Delete a certificate entity by ID
     get:
-      description: get user by ID
-      operationId: get-user
+      description: get certificate by ID
+      operationId: get-certificate
       parameters:
-      - description: User ID
+      - description: Certificate ID
         in: path
         name: id
         required: true
@@ -499,7 +284,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/ent.User'
+            $ref: '#/definitions/ent.Certificate'
         "400":
           description: Bad Request
           schema:
@@ -512,31 +297,31 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/gin.H'
-      summary: Get a user entity by ID
+      summary: Get a certificate entity by ID
     put:
       consumes:
       - application/json
-      description: update user by ID
-      operationId: update-user
+      description: update certificate by ID
+      operationId: update-certificate
       parameters:
-      - description: User ID
+      - description: Certificate ID
         in: path
         name: id
         required: true
         type: integer
-      - description: User entity
+      - description: Certificate entity
         in: body
-        name: user
+        name: certificate
         required: true
         schema:
-          $ref: '#/definitions/ent.User'
+          $ref: '#/definitions/ent.Certificate'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/ent.User'
+            $ref: '#/definitions/ent.Certificate'
         "400":
           description: Bad Request
           schema:
@@ -545,11 +330,11 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/gin.H'
-      summary: Update a user entity by ID
-  /videos:
+      summary: Update a certificate entity by ID
+  /coveredpersons:
     get:
-      description: list video entities
-      operationId: list-video
+      description: list coveredperson entities
+      operationId: list-coveredperson
       parameters:
       - description: Limit
         in: query
@@ -566,7 +351,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/ent.Video'
+              $ref: '#/definitions/ent.CoveredPerson'
             type: array
         "400":
           description: Bad Request
@@ -576,26 +361,26 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/gin.H'
-      summary: List video entities
+      summary: List coveredperson entities
     post:
       consumes:
       - application/json
-      description: Create video
-      operationId: create-video
+      description: Create coveredperson
+      operationId: create-coveredperson
       parameters:
-      - description: Video entity
+      - description: CoveredPerson entity
         in: body
-        name: video
+        name: coveredperson
         required: true
         schema:
-          $ref: '#/definitions/ent.Video'
+          $ref: '#/definitions/controllers.CoveredPerson'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/ent.Video'
+            $ref: '#/definitions/ent.CoveredPerson'
         "400":
           description: Bad Request
           schema:
@@ -604,13 +389,13 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/gin.H'
-      summary: Create video
-  /videos/{id}:
+      summary: Create coveredperson
+  /coveredpersons/{id}:
     delete:
-      description: get video by ID
-      operationId: delete-video
+      description: get coveredperson by ID
+      operationId: delete-coveredperson
       parameters:
-      - description: Video ID
+      - description: CoveredPerson ID
         in: path
         name: id
         required: true
@@ -634,12 +419,12 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/gin.H'
-      summary: Delete a video entity by ID
+      summary: Delete a coveredperson entity by ID
     get:
-      description: get video by ID
-      operationId: get-video
+      description: get coveredperson by ID
+      operationId: get-coveredperson
       parameters:
-      - description: Video ID
+      - description: CoveredPerson ID
         in: path
         name: id
         required: true
@@ -650,7 +435,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/ent.Video'
+            $ref: '#/definitions/ent.CoveredPerson'
         "400":
           description: Bad Request
           schema:
@@ -663,31 +448,31 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/gin.H'
-      summary: Get a video entity by ID
+      summary: Get a coveredperson entity by ID
     put:
       consumes:
       - application/json
-      description: update video by ID
-      operationId: update-video
+      description: update coveredperson by ID
+      operationId: update-coveredperson
       parameters:
-      - description: Video ID
+      - description: CoveredPerson ID
         in: path
         name: id
         required: true
         type: integer
-      - description: Video entity
+      - description: CoveredPerson entity
         in: body
-        name: video
+        name: coveredperson
         required: true
         schema:
-          $ref: '#/definitions/ent.Video'
+          $ref: '#/definitions/ent.CoveredPerson'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/ent.Video'
+            $ref: '#/definitions/ent.CoveredPerson'
         "400":
           description: Bad Request
           schema:
@@ -696,7 +481,460 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/gin.H'
-      summary: Update a video entity by ID
+      summary: Update a coveredperson entity by ID
+  /funds:
+    get:
+      description: list fund entities
+      operationId: list-fund
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Fund'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List fund entities
+    post:
+      consumes:
+      - application/json
+      description: Create fund
+      operationId: create-fund
+      parameters:
+      - description: Fund entity
+        in: body
+        name: fund
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Fund'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Fund'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create fund
+  /funds/{id}:
+    delete:
+      description: get fund by ID
+      operationId: delete-fund
+      parameters:
+      - description: fund ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Delete a fund entity by ID
+    get:
+      description: get fund by ID
+      operationId: get-fund
+      parameters:
+      - description: Fund ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Fund'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a fund entity by ID
+    put:
+      consumes:
+      - application/json
+      description: update fund by ID
+      operationId: update-fund
+      parameters:
+      - description: fund ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: fund entity
+        in: body
+        name: fund
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Fund'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Fund'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Update a fund entity by ID
+  /patients:
+    get:
+      description: list patient entities
+      operationId: list-patient
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Patient'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List patient entities
+    post:
+      consumes:
+      - application/json
+      description: Create patient
+      operationId: create-patient
+      parameters:
+      - description: Patient entity
+        in: body
+        name: patient
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Patient'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Patient'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create patient
+  /patients/{id}:
+    delete:
+      description: get patient by ID
+      operationId: delete-patient
+      parameters:
+      - description: Patient ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Delete a patient entity by ID
+    get:
+      description: get patient by ID
+      operationId: get-patient
+      parameters:
+      - description: Patient ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Patient'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a patient entity by ID
+    put:
+      consumes:
+      - application/json
+      description: update patient by ID
+      operationId: update-patient
+      parameters:
+      - description: Patient ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Patient entity
+        in: body
+        name: patient
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Patient'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Patient'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Update a patient entity by ID
+  /schemeTypes:
+    get:
+      description: list schemeType entities
+      operationId: list-schemeType
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.SchemeType'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List schemeType entities
+    post:
+      consumes:
+      - application/json
+      description: Create schemeType
+      operationId: create-schemeType
+      parameters:
+      - description: SchemeType entity
+        in: body
+        name: schemeType
+        required: true
+        schema:
+          $ref: '#/definitions/ent.SchemeType'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.SchemeType'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create schemeType
+  /schemeTypes/{id}:
+    delete:
+      description: get schemeType by ID
+      operationId: delete-schemeType
+      parameters:
+      - description: SchemeType ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Delete a schemeType entity by ID
+    get:
+      description: get schemeType by ID
+      operationId: get-schemeType
+      parameters:
+      - description: SchemeType ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.SchemeType'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a schemeType entity by ID
+    put:
+      consumes:
+      - application/json
+      description: update schemeType by ID
+      operationId: update-schemeType
+      parameters:
+      - description: SchemeType ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: SchemeType entity
+        in: body
+        name: schemeType
+        required: true
+        schema:
+          $ref: '#/definitions/ent.SchemeType'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.SchemeType'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Update a schemeType entity by ID
 securityDefinitions:
   ApiKeyAuth:
     in: header
@@ -712,6 +950,7 @@ securityDefinitions:
     tokenUrl: https://example.com/oauth/token
     type: oauth2
   OAuth2Application:
+    authorizationUrl: ""
     flow: application
     scopes:
       admin: ' Grants read and write access to administrative information'
@@ -726,6 +965,7 @@ securityDefinitions:
       write: ' Grants write access'
     type: oauth2
   OAuth2Password:
+    authorizationUrl: ""
     flow: password
     scopes:
       admin: ' Grants read and write access to administrative information'

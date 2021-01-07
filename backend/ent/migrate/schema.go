@@ -3,130 +3,122 @@
 package migrate
 
 import (
-	"github.com/facebook/ent/dialect/sql/schema"
-	"github.com/facebook/ent/schema/field"
+	"github.com/facebookincubator/ent/dialect/sql/schema"
+	"github.com/facebookincubator/ent/schema/field"
 )
 
 var (
-	// PlaylistsColumns holds the columns for the "playlists" table.
-	PlaylistsColumns = []*schema.Column{
+	// CertificatesColumns holds the columns for the "certificates" table.
+	CertificatesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "title", Type: field.TypeString},
-		{Name: "owner_id", Type: field.TypeInt, Nullable: true},
+		{Name: "certificate_name", Type: field.TypeString},
 	}
-	// PlaylistsTable holds the schema information for the "playlists" table.
-	PlaylistsTable = &schema.Table{
-		Name:       "playlists",
-		Columns:    PlaylistsColumns,
-		PrimaryKey: []*schema.Column{PlaylistsColumns[0]},
-		ForeignKeys: []*schema.ForeignKey{
-			{
-				Symbol:  "playlists_users_playlists",
-				Columns: []*schema.Column{PlaylistsColumns[2]},
-
-				RefColumns: []*schema.Column{UsersColumns[0]},
-				OnDelete:   schema.SetNull,
-			},
-		},
-	}
-	// PlaylistVideosColumns holds the columns for the "playlist_videos" table.
-	PlaylistVideosColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "added_time", Type: field.TypeTime},
-		{Name: "playlist_id", Type: field.TypeInt, Nullable: true},
-		{Name: "resolution_id", Type: field.TypeInt, Nullable: true},
-		{Name: "video_id", Type: field.TypeInt, Nullable: true},
-	}
-	// PlaylistVideosTable holds the schema information for the "playlist_videos" table.
-	PlaylistVideosTable = &schema.Table{
-		Name:       "playlist_videos",
-		Columns:    PlaylistVideosColumns,
-		PrimaryKey: []*schema.Column{PlaylistVideosColumns[0]},
-		ForeignKeys: []*schema.ForeignKey{
-			{
-				Symbol:  "playlist_videos_playlists_playlist_videos",
-				Columns: []*schema.Column{PlaylistVideosColumns[2]},
-
-				RefColumns: []*schema.Column{PlaylistsColumns[0]},
-				OnDelete:   schema.SetNull,
-			},
-			{
-				Symbol:  "playlist_videos_resolutions_playlist_videos",
-				Columns: []*schema.Column{PlaylistVideosColumns[3]},
-
-				RefColumns: []*schema.Column{ResolutionsColumns[0]},
-				OnDelete:   schema.SetNull,
-			},
-			{
-				Symbol:  "playlist_videos_videos_playlist_videos",
-				Columns: []*schema.Column{PlaylistVideosColumns[4]},
-
-				RefColumns: []*schema.Column{VideosColumns[0]},
-				OnDelete:   schema.SetNull,
-			},
-		},
-	}
-	// ResolutionsColumns holds the columns for the "resolutions" table.
-	ResolutionsColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "value", Type: field.TypeInt},
-	}
-	// ResolutionsTable holds the schema information for the "resolutions" table.
-	ResolutionsTable = &schema.Table{
-		Name:        "resolutions",
-		Columns:     ResolutionsColumns,
-		PrimaryKey:  []*schema.Column{ResolutionsColumns[0]},
+	// CertificatesTable holds the schema information for the "certificates" table.
+	CertificatesTable = &schema.Table{
+		Name:        "certificates",
+		Columns:     CertificatesColumns,
+		PrimaryKey:  []*schema.Column{CertificatesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
+	// CoveredPersonsColumns holds the columns for the "covered_persons" table.
+	CoveredPersonsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "name", Type: field.TypeString},
-		{Name: "email", Type: field.TypeString},
+		{Name: "Certificate_id", Type: field.TypeInt, Nullable: true},
+		{Name: "Fund_id", Type: field.TypeInt, Nullable: true},
+		{Name: "Patient_id", Type: field.TypeInt, Nullable: true},
+		{Name: "SchemeType_id", Type: field.TypeInt, Nullable: true},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:        "users",
-		Columns:     UsersColumns,
-		PrimaryKey:  []*schema.Column{UsersColumns[0]},
-		ForeignKeys: []*schema.ForeignKey{},
-	}
-	// VideosColumns holds the columns for the "videos" table.
-	VideosColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "name", Type: field.TypeString},
-		{Name: "url", Type: field.TypeString},
-		{Name: "owner_id", Type: field.TypeInt, Nullable: true},
-	}
-	// VideosTable holds the schema information for the "videos" table.
-	VideosTable = &schema.Table{
-		Name:       "videos",
-		Columns:    VideosColumns,
-		PrimaryKey: []*schema.Column{VideosColumns[0]},
+	// CoveredPersonsTable holds the schema information for the "covered_persons" table.
+	CoveredPersonsTable = &schema.Table{
+		Name:       "covered_persons",
+		Columns:    CoveredPersonsColumns,
+		PrimaryKey: []*schema.Column{CoveredPersonsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "videos_users_videos",
-				Columns: []*schema.Column{VideosColumns[3]},
+				Symbol:  "covered_persons_certificates_Certificate_CoveredPerson",
+				Columns: []*schema.Column{CoveredPersonsColumns[1]},
 
-				RefColumns: []*schema.Column{UsersColumns[0]},
+				RefColumns: []*schema.Column{CertificatesColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+			{
+				Symbol:  "covered_persons_funds_Fund_CoveredPerson",
+				Columns: []*schema.Column{CoveredPersonsColumns[2]},
+
+				RefColumns: []*schema.Column{FundsColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+			{
+				Symbol:  "covered_persons_patients_Patient_CoveredPerson",
+				Columns: []*schema.Column{CoveredPersonsColumns[3]},
+
+				RefColumns: []*schema.Column{PatientsColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+			{
+				Symbol:  "covered_persons_scheme_types_SchemeType_CoveredPerson",
+				Columns: []*schema.Column{CoveredPersonsColumns[4]},
+
+				RefColumns: []*schema.Column{SchemeTypesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
+	}
+	// FundsColumns holds the columns for the "funds" table.
+	FundsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "fund_name", Type: field.TypeString},
+	}
+	// FundsTable holds the schema information for the "funds" table.
+	FundsTable = &schema.Table{
+		Name:        "funds",
+		Columns:     FundsColumns,
+		PrimaryKey:  []*schema.Column{FundsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// PatientsColumns holds the columns for the "patients" table.
+	PatientsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "patient_name", Type: field.TypeString},
+		{Name: "patient_age", Type: field.TypeString},
+		{Name: "patient_weight", Type: field.TypeString},
+		{Name: "patient_height", Type: field.TypeString},
+		{Name: "patient_prefix", Type: field.TypeString},
+		{Name: "patient_gender", Type: field.TypeString},
+		{Name: "patient_blood", Type: field.TypeString},
+	}
+	// PatientsTable holds the schema information for the "patients" table.
+	PatientsTable = &schema.Table{
+		Name:        "patients",
+		Columns:     PatientsColumns,
+		PrimaryKey:  []*schema.Column{PatientsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// SchemeTypesColumns holds the columns for the "scheme_types" table.
+	SchemeTypesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "scheme_type_name", Type: field.TypeString},
+	}
+	// SchemeTypesTable holds the schema information for the "scheme_types" table.
+	SchemeTypesTable = &schema.Table{
+		Name:        "scheme_types",
+		Columns:     SchemeTypesColumns,
+		PrimaryKey:  []*schema.Column{SchemeTypesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		PlaylistsTable,
-		PlaylistVideosTable,
-		ResolutionsTable,
-		UsersTable,
-		VideosTable,
+		CertificatesTable,
+		CoveredPersonsTable,
+		FundsTable,
+		PatientsTable,
+		SchemeTypesTable,
 	}
 )
 
 func init() {
-	PlaylistsTable.ForeignKeys[0].RefTable = UsersTable
-	PlaylistVideosTable.ForeignKeys[0].RefTable = PlaylistsTable
-	PlaylistVideosTable.ForeignKeys[1].RefTable = ResolutionsTable
-	PlaylistVideosTable.ForeignKeys[2].RefTable = VideosTable
-	VideosTable.ForeignKeys[0].RefTable = UsersTable
+	CoveredPersonsTable.ForeignKeys[0].RefTable = CertificatesTable
+	CoveredPersonsTable.ForeignKeys[1].RefTable = FundsTable
+	CoveredPersonsTable.ForeignKeys[2].RefTable = PatientsTable
+	CoveredPersonsTable.ForeignKeys[3].RefTable = SchemeTypesTable
 }

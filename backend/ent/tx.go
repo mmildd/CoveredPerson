@@ -6,22 +6,22 @@ import (
 	"context"
 	"sync"
 
-	"github.com/facebook/ent/dialect"
+	"github.com/facebookincubator/ent/dialect"
 )
 
 // Tx is a transactional client that is created by calling Client.Tx().
 type Tx struct {
 	config
-	// Playlist is the client for interacting with the Playlist builders.
-	Playlist *PlaylistClient
-	// Playlist_Video is the client for interacting with the Playlist_Video builders.
-	Playlist_Video *Playlist_VideoClient
-	// Resolution is the client for interacting with the Resolution builders.
-	Resolution *ResolutionClient
-	// User is the client for interacting with the User builders.
-	User *UserClient
-	// Video is the client for interacting with the Video builders.
-	Video *VideoClient
+	// Certificate is the client for interacting with the Certificate builders.
+	Certificate *CertificateClient
+	// CoveredPerson is the client for interacting with the CoveredPerson builders.
+	CoveredPerson *CoveredPersonClient
+	// Fund is the client for interacting with the Fund builders.
+	Fund *FundClient
+	// Patient is the client for interacting with the Patient builders.
+	Patient *PatientClient
+	// SchemeType is the client for interacting with the SchemeType builders.
+	SchemeType *SchemeTypeClient
 
 	// lazily loaded.
 	client     *Client
@@ -157,11 +157,11 @@ func (tx *Tx) Client() *Client {
 }
 
 func (tx *Tx) init() {
-	tx.Playlist = NewPlaylistClient(tx.config)
-	tx.Playlist_Video = NewPlaylist_VideoClient(tx.config)
-	tx.Resolution = NewResolutionClient(tx.config)
-	tx.User = NewUserClient(tx.config)
-	tx.Video = NewVideoClient(tx.config)
+	tx.Certificate = NewCertificateClient(tx.config)
+	tx.CoveredPerson = NewCoveredPersonClient(tx.config)
+	tx.Fund = NewFundClient(tx.config)
+	tx.Patient = NewPatientClient(tx.config)
+	tx.SchemeType = NewSchemeTypeClient(tx.config)
 }
 
 // txDriver wraps the given dialect.Tx with a nop dialect.Driver implementation.
@@ -171,7 +171,7 @@ func (tx *Tx) init() {
 // of them in order to commit or rollback the transaction.
 //
 // If a closed transaction is embedded in one of the generated entities, and the entity
-// applies a query, for example: Playlist.QueryXXX(), the query will be executed
+// applies a query, for example: Certificate.QueryXXX(), the query will be executed
 // through the driver which created this transaction.
 //
 // Note that txDriver is not goroutine safe.
